@@ -11,6 +11,11 @@
 </head>
 
 <body>
+<?php
+    include("conexion.php");
+    include("registro.php");
+    include("eliminar.php");  
+?>
     <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
         <a class="navbar-brand" href="#">Navbar</a>
         <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent"
@@ -67,7 +72,8 @@
 
                         <?php
               include_once("conexion.php");
-                $consulta = "SELECT * FROM estadios";                    
+                $consulta = "SELECT e.id_estadio,e.nombre_estadio,e.aforo,e.ciudad,p.nombre_pais FROM estadios e
+                LEFT JOIN paises p ON e.pais = p.id_pais;";                    
                 $ejecutar = mysqli_query($con, $consulta);
 
                 $i=0;
@@ -77,7 +83,7 @@
                       $aforo = number_format($fila['aforo'], 0, ',', '.');
                       $nombre_estadio = $fila['nombre_estadio'];                      
                       $ciudad = $fila['ciudad'];
-                      $pais = $fila['pais'];                      
+                      $pais = $fila['nombre_pais'];                      
 
                       $i++;
                         
@@ -92,12 +98,12 @@
                             <td><a href="crear_estadio.php?editar_estadio=<?php echo $id; ?>"> <img
                                         src="iconos/162-edit.svg" class="icono_eliminar" alt="icono_eliminar"
                                         title="Editar"></a>
-                                <a href="crear_estadio.php?eliminar_estadio=<?php echo $id; ?>"> <img
+                                <a href="estadios.php?eliminar_estadio=<?php echo $id; ?>"> <img
                                         src="iconos/delete.svg" class="icono_eliminar" alt="icono_eliminar"
                                         title="Eliminar"></a>
                             </td>
                         </tr>
-
+                        
                         <?php } ?>
 
                     </tbody>

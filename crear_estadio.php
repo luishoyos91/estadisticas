@@ -9,6 +9,11 @@
       <link rel="stylesheet" href="css/estilos.css">
    </head>
    <body>
+   <?php
+    include("conexion.php");
+    include("registro.php");
+    /* include("eliminar.php"); */    
+   ?>
       <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
          <a class="navbar-brand" href="#">Navbar</a>
          <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent"

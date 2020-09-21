@@ -16,8 +16,7 @@
 <body>
 <?php
     include_once("php/conexion.php");
-    include("php/registro.php");
-    include("php/eliminar.php");  
+    include("php/registro.php"); 
 ?>
     <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
     <a class="navbar-brand" href="#">

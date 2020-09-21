@@ -7,19 +7,20 @@
       <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css"
          integrity="sha384-JcKb8q3iqJ61gNV9KGb8thSsNjpSL0n8PARn9HuZOnIxN0hoP+VmmDGMN5t9UJ0Z" crossorigin="anonymous">
       <link rel="stylesheet" href="css/estilos.css">
+      <script
+      src="https://code.jquery.com/jquery-3.5.1.js"
+      integrity="sha256-QWo7LDvxbWT2tbbQ97B53yJnYU3WhH/C8ycbRAkjPDc="
+      crossorigin="anonymous"></script>
    </head>
    <body>
    <?php
-    include("conexion.php");
-    include("registro.php");
-    /* include("eliminar.php"); */    
+    include_once("php/conexion.php");
+    include("php/registro.php");    
    ?>
       <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
-         <a class="navbar-brand" href="#">Navbar</a>
-         <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent"
-            aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
-         <span class="navbar-toggler-icon"></span>
-         </button>
+      <a class="navbar-brand" href="#">
+         <img src="iconos/millonarios.png" width="40" height="40" alt="" loading="lazy">
+      </a>
          <div class="collapse navbar-collapse" id="navbarSupportedContent">
             <ul class="navbar-nav mr-auto">
                <li class="nav-item active">
@@ -51,41 +52,32 @@
          <div class="container">
             <article>
                <h1>Registrar Estadio</h1>
-               <form method="POST" action="crear_estadio.php">
-                  <div class="form-group col-md-6">
-                     <label for="exampleInputEmail1">Nombre</label>
-                     <input type="text" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp"
+               <form method="POST" action="crear_estadio.php">                  
+                  <div class="form-group col-md-6" id="formularios">
+                     <label class="control-label" for="nombre">Nombre</label>
+                     <input type="text" class="form-control" id="nombre" aria-describedby="emailHelp"
                         name="nombre_estadio" minlenght="3" required>
                   </div>
-                  <div class="form-group col-md-2">
-                     <label for="exampleInputEmail1">Aforo</label>
-                     <input type="number" class="form-control" id="exampleInputEmail1" name="aforo">
+                  <div class="form-group col-md-6" id="formularios">
+                     <label for="aforo">Aforo</label>
+                     <input type="number" class="form-control" id="aforo" name="aforo">
                   </div>
-                  <div class="form-group col-md-3">
-                     <label for="exampleInputPassword1">Ciudad</label>
-                     <input type="text" class="form-control" id="exampleInputPassword1" name="ciudad_estadio"
-                        required>
-                  </div>
-                  <div class="form-group col-md-3">
+                  <div class="form-group col-md-6" id="formularios">
                      <label class="label_form">País</label>
-                     <select class="custom-select" id="validationServer04" name="pais_estadio">
-                        <option selected disabled value="">--Seleccione--</option>
-                        <?php 
-                           include("conexion.php");
-                           $conexion = mysqli_connect("localhost", "root","","estadisticas") or die ("Error en la conexión a base de datos");
-                           $sql = "SELECT id_pais,nombre_pais,codigo_pais,estado FROM paises
-                                   WHERE estado = 'ACT';";
-                           
-                           $query = $conexion -> query ($sql);
-                           
-                           while($valores = mysqli_fetch_array($query)){
-                             echo "<option value='".$valores['id_pais']."'>".$valores['codigo_pais']." - ".$valores['nombre_pais']."</option>";
-                           }
-                           ?>
+                     <select class="form-control" id="lista_paises" name="pais_estadio">
                      </select>
                   </div>
-                  <input type="submit" class="btn btn-primary" name="guardar_estadio" value="Guardar"
-                     id="boton_guardar"></button>                      
+                  <div class="form-group col-md-6" id="formularios">
+                     <label class="label_form">Ciudad</label>
+                     <select class="form-control" id="ciudades" name="ciudad_estadio" required>
+                     </select>
+                  </div>
+                  <div class="form-group col-md-6" id="botones_formularios">
+                     <input type="submit" class="btn btn-primary" title="Guardar" name="guardar_estadio" value="Guardar"
+                     id="boton_guardar"></button>
+                     <input type="button" class="btn btn-secondary" title="Cancelar" value="Cancelar" onclick="history.back();">
+                  </div>
+                     <br>
                </form>
             </article>
          </div>
@@ -113,5 +105,6 @@
             </p>
          </div>
       </footer>
+      <script type="text/javascript" src="js/script.js"></script>
    </body>
 </html>

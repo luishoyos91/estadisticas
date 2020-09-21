@@ -8,20 +8,21 @@
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css"
         integrity="sha384-JcKb8q3iqJ61gNV9KGb8thSsNjpSL0n8PARn9HuZOnIxN0hoP+VmmDGMN5t9UJ0Z" crossorigin="anonymous">
     <link rel="stylesheet" href="css/estilos.css">
+    <script
+      src="https://code.jquery.com/jquery-3.5.1.js"
+      integrity="sha256-QWo7LDvxbWT2tbbQ97B53yJnYU3WhH/C8ycbRAkjPDc="
+      crossorigin="anonymous"></script>
 </head>
-
 <body>
 <?php
-    include("conexion.php");
-    include("registro.php");
-    include("eliminar.php");  
+    include_once("php/conexion.php");
+    include("php/registro.php");
+    include("php/eliminar.php");  
 ?>
     <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
-        <a class="navbar-brand" href="#">Navbar</a>
-        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent"
-            aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
-            <span class="navbar-toggler-icon"></span>
-        </button>
+    <a class="navbar-brand" href="#">
+        <img src="iconos/millonarios.png" width="40" height="40" alt="" loading="lazy">
+     </a>
         <div class="collapse navbar-collapse" id="navbarSupportedContent">
             <ul class="navbar-nav mr-auto">
                 <li class="nav-item active">
@@ -52,6 +53,13 @@
         <br>
         <div class="container">
             <article>
+                <div class="col-md-4">
+                <?php
+                    if(isset($mensaje)){
+                        echo $mensaje;
+                    }
+                ?>
+                </div>
                 <h1>Estadios</h1>
                 <a href="crear_estadio.php"> <img src="iconos/add.svg" class="icono_registrar" alt="registrar"
                         title="Registrar Estadio"></a>
@@ -63,17 +71,17 @@
                             <!--  <th scope="col">#</th> -->
                             <th scope="col">Nombre</th>
                             <th scope="col">Aforo</th>
+                            <th scope="col">País</th>
                             <th scope="col">Ciudad</th>
-                            <th scope="col">Pais</th>
                             <th scope="col">Acciones</th>
                         </tr>
                     </thead>
                     <tbody>
 
-                        <?php
-              include_once("conexion.php");
-                $consulta = "SELECT e.id_estadio,e.nombre_estadio,e.aforo,e.ciudad,p.nombre_pais FROM estadios e
-                LEFT JOIN paises p ON e.pais = p.id_pais;";                    
+                        <?php                
+                $consulta = "SELECT e.id_estadio,e.nombre_estadio,e.aforo,c.nombre_ciudad,p.nombre_pais FROM estadios e
+                     LEFT JOIN paises p ON e.pais = p.id_pais
+					 LEFT JOIN ciudades c ON e.ciudad = c.id_ciudad";                    
                 $ejecutar = mysqli_query($con, $consulta);
 
                 $i=0;
@@ -81,9 +89,9 @@
                 while($fila = mysqli_fetch_array($ejecutar)){                       
                       $id = $fila['id_estadio'];
                       $aforo = number_format($fila['aforo'], 0, ',', '.');
-                      $nombre_estadio = $fila['nombre_estadio'];                      
-                      $ciudad = $fila['ciudad'];
-                      $pais = $fila['nombre_pais'];                      
+                      $nombre_estadio = $fila['nombre_estadio']; 
+                      $pais = $fila['nombre_pais'];                        
+                      $ciudad = $fila['nombre_ciudad'];                                         
 
                       $i++;
                         
@@ -93,8 +101,8 @@
                             <!--  <th scope="row"><?php echo $id; ?></th> -->
                             <td><?php echo $nombre_estadio; ?></td>
                             <td><?php echo $aforo; ?></td>
-                            <td><?php echo $ciudad; ?></td>
                             <td><?php echo $pais; ?></td>
+                            <td><?php echo $ciudad; ?></td>
                             <td><a href="crear_estadio.php?editar_estadio=<?php echo $id; ?>"> <img
                                         src="iconos/162-edit.svg" class="icono_eliminar" alt="icono_eliminar"
                                         title="Editar"></a>
@@ -108,6 +116,7 @@
 
                     </tbody>
                 </table>
+                <br>
             </article>
         </div>
     </section>
@@ -134,6 +143,7 @@
             </p>
         </div>
     </footer>
+    <script type="text/javascript" src="js/script.js"></script>
 </body>
 
 </html>

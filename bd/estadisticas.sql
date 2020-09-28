@@ -42,11 +42,42 @@ CREATE TABLE IF NOT EXISTS `alineaciones` (
 /*!40000 ALTER TABLE `alineaciones` DISABLE KEYS */;
 /*!40000 ALTER TABLE `alineaciones` ENABLE KEYS */;
 
+-- Volcando estructura para tabla estadisticas.ciudades
+CREATE TABLE IF NOT EXISTS `ciudades` (
+  `id_ciudad` int(11) NOT NULL AUTO_INCREMENT,
+  `nombre_ciudad` varchar(200) NOT NULL,
+  `cod_ciudad` varchar(4) NOT NULL,
+  `id_pais` int(11) DEFAULT NULL,
+  PRIMARY KEY (`id_ciudad`),
+  KEY `FK_ciudades_paises` (`id_pais`),
+  CONSTRAINT `FK_ciudades_paises` FOREIGN KEY (`id_pais`) REFERENCES `paises` (`id_pais`) ON UPDATE CASCADE
+) ENGINE=InnoDB AUTO_INCREMENT=15 DEFAULT CHARSET=utf8mb4;
+
+-- Volcando datos para la tabla estadisticas.ciudades: ~6 rows (aproximadamente)
+/*!40000 ALTER TABLE `ciudades` DISABLE KEYS */;
+INSERT INTO `ciudades` (`id_ciudad`, `nombre_ciudad`, `cod_ciudad`, `id_pais`) VALUES
+	(1, 'Bogotá', 'BOG', 1),
+	(2, 'Medellín', 'MED', 1),
+	(3, 'Cali', 'CAL', 1),
+	(4, 'Barranquilla', 'BAR', 1),
+	(5, 'Caracas', 'CAR', 6),
+	(6, 'Táchira', 'TAC', 6),
+	(7, 'Buenos Aires', 'BUE', 2),
+	(8, 'Santiago', 'SAN', 5),
+	(9, 'Quito', 'QUI', 9),
+	(10, 'Lima', 'LIM', 10),
+	(11, 'Guayaquil', 'GUA', 9),
+	(12, 'Avellaneda', 'ARG', 2),
+	(13, 'Rosario', 'ARG', 2),
+	(14, 'La Paz', 'LPZ', 3);
+/*!40000 ALTER TABLE `ciudades` ENABLE KEYS */;
+
 -- Volcando estructura para tabla estadisticas.equipos
 CREATE TABLE IF NOT EXISTS `equipos` (
   `id_equipo` int(11) NOT NULL AUTO_INCREMENT,
   `nombre_equipo` varchar(200) NOT NULL,
   `nacionalidad` varchar(4) NOT NULL,
+  `cod_equipo` varchar(4) DEFAULT NULL,
   PRIMARY KEY (`id_equipo`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
@@ -59,20 +90,29 @@ CREATE TABLE IF NOT EXISTS `estadios` (
   `id_estadio` int(11) NOT NULL AUTO_INCREMENT,
   `nombre_estadio` varchar(100) NOT NULL,
   `aforo` int(7) DEFAULT NULL,
-  `ciudad` varchar(50) NOT NULL,
+  `ciudad` varchar(200) DEFAULT NULL,
   `pais` int(11) DEFAULT NULL,
+  `fecha_registro` datetime DEFAULT NULL,
   PRIMARY KEY (`id_estadio`)
-) ENGINE=InnoDB AUTO_INCREMENT=7 DEFAULT CHARSET=utf8mb4;
+) ENGINE=InnoDB AUTO_INCREMENT=45 DEFAULT CHARSET=utf8mb4;
 
--- Volcando datos para la tabla estadisticas.estadios: ~2 rows (aproximadamente)
+-- Volcando datos para la tabla estadisticas.estadios: ~11 rows (aproximadamente)
 /*!40000 ALTER TABLE `estadios` DISABLE KEYS */;
-INSERT INTO `estadios` (`id_estadio`, `nombre_estadio`, `aforo`, `ciudad`, `pais`) VALUES
-	(1, 'prueba', NULL, 'a', 0),
-	(2, 'Pascual', NULL, 'Cali', 0),
-	(3, 'a', NULL, 'a', 0),
-	(4, 'Santiago Bernabeu', NULL, 'Madrid', 0),
-	(5, 'Camp Nou', NULL, 'Barcelona', 0),
-	(6, 'Stadium of Light', 56000, 'Sunderland', 0);
+INSERT INTO `estadios` (`id_estadio`, `nombre_estadio`, `aforo`, `ciudad`, `pais`, `fecha_registro`) VALUES
+	(9, 'Stanford Bridge', 90570, '4', 1, '2020-09-28 17:01:55'),
+	(24, 'PRUEBA - 2', 70000, '3', 1, '2020-09-28 17:00:24'),
+	(25, 'Prueba', 15000, '1', 1, '2020-09-20 19:38:08'),
+	(26, 'Metropolitano de Techo', 15690, '6', 2, '2020-09-20 19:39:52'),
+	(27, 'Romelio', 15000, '4', 1, '2020-09-20 19:40:44'),
+	(28, 'Pascual', 45000, '3', 1, '2020-09-20 19:43:30'),
+	(29, 'Metropolitano de Techo', 7250, '3', 1, '2020-09-20 20:46:19'),
+	(31, 'prueba', 1000, '6', 2, '2020-09-20 20:49:56'),
+	(33, 'Metropolitano de Techo', 1500, '2', 1, '2020-09-20 20:59:46'),
+	(38, 'Palmaseca', 500, '3', 1, '2020-09-28 12:27:04'),
+	(39, 'Anfield Road', 56789, '6', 2, '2020-09-28 12:27:21'),
+	(40, 'Coloso del Parque', 40550, '2', 1, '2020-09-28 17:49:54'),
+	(41, 'Ellow', 1000, '7', 2, '2020-09-28 17:52:58'),
+	(44, 'Palmaseca', 15369, '1', 1, '2020-09-28 17:58:42');
 /*!40000 ALTER TABLE `estadios` ENABLE KEYS */;
 
 -- Volcando estructura para tabla estadisticas.jugadores
@@ -104,11 +144,20 @@ CREATE TABLE IF NOT EXISTS `paises` (
   PRIMARY KEY (`id_pais`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
--- Volcando datos para la tabla estadisticas.paises: ~0 rows (aproximadamente)
+-- Volcando datos para la tabla estadisticas.paises: ~2 rows (aproximadamente)
 /*!40000 ALTER TABLE `paises` DISABLE KEYS */;
 INSERT INTO `paises` (`id_pais`, `nombre_pais`, `codigo_pais`, `estado`) VALUES
 	(1, 'Colombia', 'COL', 'ACT'),
-	(2, 'Venezuela', 'VEN', 'ACT');
+	(2, 'Argentina', 'ARG', 'ACT'),
+	(3, 'Bolivia', 'BOL', 'ACT'),
+	(4, 'Brasil', 'BRA', 'ACT'),
+	(5, 'Chile', 'CHI', 'ACT'),
+	(6, 'Venezuela', 'VEN', 'ACT'),
+	(7, 'Uruguay', 'URU', 'ACT'),
+	(8, 'Paraguay', 'PAR', 'ACT'),
+	(9, 'Ecuador', 'ECU', 'ACT'),
+	(10, 'Perú', 'PER', 'ACT'),
+	(11, 'Costa Rica', 'CRC', 'ACT');
 /*!40000 ALTER TABLE `paises` ENABLE KEYS */;
 
 -- Volcando estructura para tabla estadisticas.partidos

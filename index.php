@@ -15,7 +15,7 @@
 <body>
 <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
 <a class="navbar-brand" href="#">
-    <img src="iconos/millonarios.png" width="40" height="40" alt="" loading="lazy">
+    <img src="iconos/millonarios.png" width="30" height="30" alt="Logotipo" loading="lazy">
   </a>
   <div class="collapse navbar-collapse" id="navbarSupportedContent">
     <ul class="navbar-nav mr-auto">

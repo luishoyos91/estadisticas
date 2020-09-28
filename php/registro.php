@@ -12,7 +12,7 @@
         $ejecutar = mysqli_query($con, $insertar_estadio);            
 
         if($ejecutar){
-            echo "<script>alert('Registro Guardado Correctamente')</script>";
+            echo "<script>alert('Registro Guardado Correctamente')</script>";            
             echo "<script>window.open('estadios.php','_self')</script>";
             mysql_close($con);
         }else{

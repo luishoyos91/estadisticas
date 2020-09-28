@@ -4,7 +4,7 @@ require_once 'conexion.php';
 function getListaPaises(){
   $conexion = mysqli_connect("localhost", "root","","estadisticas") or die ("Error en la conexión a base de datos");
   $mysqli = $conexion;
-  $query = 'SELECT * FROM paises';
+  $query = 'SELECT * FROM paises ORDER BY nombre_pais';
   $result = $mysqli->query($query);
   $listas = '<option value="0">--Seleccione--</option>';
   while($row = $result->fetch_array(MYSQLI_ASSOC)){

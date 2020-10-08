@@ -1,67 +1,89 @@
+<?php
+  $alert='';
+  session_start();
+  if(!empty($_SESSION['active'])){
+    header('location: home.php');
+  }else{
+
+    if(!empty($_POST))
+    {
+      if (empty($_POST['usuario']) || empty($_POST['password'])) {
+        /*  $alert ='Ingrese su usuario y su clave';*/
+        $alert = '<div class="alert alert-danger" id="myAlert">                  
+                  Ingrese su usuario y su clave</div>';
+      }else{
+        require_once("php/conexion.php");
+        $user = mysqli_real_escape_string( $con,$_POST['usuario']);
+        $pass = md5(mysqli_real_escape_string( $con,$_POST['password']));
+        $consultauser = "SELECT * FROM usuarios WHERE nickname = '$user' AND clave = '$pass'";
+
+        $query = mysqli_query($con,$consultauser);
+        $result = mysqli_num_rows($query);
+
+        if($result > 0){
+          $data = mysqli_fetch_array($query);          
+          $_SESSION['active'] = true;
+          $_SESSION['idUser'] = $data['id_usuario'];
+          $_SESSION['nombre'] = $data['nombre'];
+          $_SESSION['email'] = $data['correo'];
+          $_SESSION['user'] = $data['nickname'];
+          $_SESSION['rol'] = $data['rol'];         
+
+          header('location: home.php');
+        }else
+        {
+          /*  $alert = 'El usuario o la clave son incorrectas';*/
+          $alert = '<div class="alert alert-danger" id="myAlert">                    
+          Usuario y/o Password Incorrectos</div>';   
+          session_destroy();
+        }
+      }
+    }
+  }
+?>
 <!DOCTYPE html>
-<html lang="en">
+<html lang="es">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Estadísticas</title>
-    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" integrity="sha384-JcKb8q3iqJ61gNV9KGb8thSsNjpSL0n8PARn9HuZOnIxN0hoP+VmmDGMN5t9UJ0Z" crossorigin="anonymous">
-    <link rel="shortcut icon" href="favicon.ico" type="image/x-icon">
-    <link rel="stylesheet" href="css/estilos.css">
-    <script
-      src="https://code.jquery.com/jquery-3.5.1.js"
-      integrity="sha256-QWo7LDvxbWT2tbbQ97B53yJnYU3WhH/C8ycbRAkjPDc="
-      crossorigin="anonymous"></script>
+    <title>Estadísticas Millonarios</title>
+    <?php include "scripts.php" ?>
 </head>
 <body>
-<nav class="navbar navbar-expand-lg navbar-dark bg-dark">
-<a class="navbar-brand" href="#">
-    <img src="iconos/millonarios.png" width="30" height="30" alt="Logotipo" loading="lazy">
-  </a>
-  <div class="collapse navbar-collapse" id="navbarSupportedContent">
-    <ul class="navbar-nav mr-auto">
-      <li class="nav-item active">
-        <a class="nav-link" href="#">Home <span class="sr-only">(current)</span></a>
-      </li>
-      <li class="nav-item">
-        <a class="nav-link" href="estadios.php">Estadios</a>
-      </li>
-      <li class="nav-item dropdown">
-        <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-          Dropdown
-        </a>
-        <div class="dropdown-menu" aria-labelledby="navbarDropdown">
-          <a class="dropdown-item" href="#">Action</a>
-          <a class="dropdown-item" href="#">Another action</a>
-          <div class="dropdown-divider"></div>
-          <a class="dropdown-item" href="#">Something else here</a>
+<section>
+  <div class="LogoLogin">
+    <img src="iconos/millonarios.png" class="LogoLogin2">
+  </div>
+  <div class="well col-md-5 col-sm-5 col-xs-9 center login-box">
+    <div class="alert alert-info">
+        <p>Ingreso al sistema</p> 
+    </div>                 
+  <div id="messages">
+  </div>
+    <form action="" method="post">
+      <fieldset>
+        <div class="input-group input-group-lg">
+          <span class="input-group-addon"><i class="glyphicon glyphicon-user"></i></span>
+          <input class="form-control" id="Login" name="usuario" placeholder="Usuario" type="text" value="">
         </div>
-      </li>
-      <li class="nav-item">
-        <a class="nav-link disabled" href="#" tabindex="-1" aria-disabled="true">Disabled</a>
-      </li>
-    </ul>
+        <div class="clearfix">
+        </div>
+        <br>
+        <div class="input-group input-group-lg">
+          <span class="input-group-addon"><i class="glyphicon glyphicon-lock"></i></span>
+          <input class="form-control" id="Password" name="password" placeholder="Contraseña" type="password" value="">
+        </div>
+        <div class="clearfix"></div>
+        <div class="clearfix"></div>
+        <br>        
+          <?php echo isset($alert) ? $alert : ''; ?>          
+        <button type="submit" class="btn btn-primary" value="ingresar">Ingresar</button>
+        <div class="clearfix"></div>
+      </fieldset>
+    </form>   
   </div>
-</nav>
-<footer>
-  <hr width="95%" color="#343a40" >
-  <div class="iconosredes" id="redessociales">
-    <div class="ajusteicono">
-      <a target="_blank" href="https://www.facebook.com/luishoyos91"><img src="iconos/facebook.svg" alt="facebook" title="Facebook" width="30px" height="30px"></a>
-    </div>
-    <div class="ajusteicono">
-      <a target="_blank" href="https://twitter.com/luishoyos91"><img src="iconos/twitter.svg" alt="twitter" title="Twitter" width="30px" height="30px"></a>
-    </div>
-    <div class="ajusteicono">
-        <a target="_blank" href="https://www.instagram.com/luishoyos91"><img src="iconos/instagram.svg" alt="instagram" title="Instagram" width="30px" height="30px"></a>
-    </div>
-  </div>
-  <div class="textofooter">
-    <p class="parrafo_footer">© COPYRIGHT 2020 Bogotá D.C.
-        <br>                    
-        Creado por <strong> Ing. Luis Hoyos para Millonarios FC</strong>
-    </p>
-  </div>              
-  </footer>  
+</section>
+<?php include "footer.php" ?>
   <script type="text/javascript" src="js/script.js"></script>
 </body>
 </html>

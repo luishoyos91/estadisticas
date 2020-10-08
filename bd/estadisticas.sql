@@ -53,7 +53,7 @@ CREATE TABLE IF NOT EXISTS `ciudades` (
   CONSTRAINT `FK_ciudades_paises` FOREIGN KEY (`id_pais`) REFERENCES `paises` (`id_pais`) ON UPDATE CASCADE
 ) ENGINE=InnoDB AUTO_INCREMENT=15 DEFAULT CHARSET=utf8mb4;
 
--- Volcando datos para la tabla estadisticas.ciudades: ~6 rows (aproximadamente)
+-- Volcando datos para la tabla estadisticas.ciudades: ~14 rows (aproximadamente)
 /*!40000 ALTER TABLE `ciudades` DISABLE KEYS */;
 INSERT INTO `ciudades` (`id_ciudad`, `nombre_ciudad`, `cod_ciudad`, `id_pais`) VALUES
 	(1, 'Bogotá', 'BOG', 1),
@@ -94,9 +94,9 @@ CREATE TABLE IF NOT EXISTS `estadios` (
   `pais` int(11) DEFAULT NULL,
   `fecha_registro` datetime DEFAULT NULL,
   PRIMARY KEY (`id_estadio`)
-) ENGINE=InnoDB AUTO_INCREMENT=45 DEFAULT CHARSET=utf8mb4;
+) ENGINE=InnoDB AUTO_INCREMENT=46 DEFAULT CHARSET=utf8mb4;
 
--- Volcando datos para la tabla estadisticas.estadios: ~11 rows (aproximadamente)
+-- Volcando datos para la tabla estadisticas.estadios: ~15 rows (aproximadamente)
 /*!40000 ALTER TABLE `estadios` DISABLE KEYS */;
 INSERT INTO `estadios` (`id_estadio`, `nombre_estadio`, `aforo`, `ciudad`, `pais`, `fecha_registro`) VALUES
 	(9, 'Stanford Bridge', 90570, '4', 1, '2020-09-28 17:01:55'),
@@ -112,7 +112,8 @@ INSERT INTO `estadios` (`id_estadio`, `nombre_estadio`, `aforo`, `ciudad`, `pais
 	(39, 'Anfield Road', 56789, '6', 2, '2020-09-28 12:27:21'),
 	(40, 'Coloso del Parque', 40550, '2', 1, '2020-09-28 17:49:54'),
 	(41, 'Ellow', 1000, '7', 2, '2020-09-28 17:52:58'),
-	(44, 'Palmaseca', 15369, '1', 1, '2020-09-28 17:58:42');
+	(44, 'Palmaseca', 15369, '1', 1, '2020-09-28 17:58:42'),
+	(45, 'Bombonera', 60550, '7', 2, '2020-10-08 09:57:24');
 /*!40000 ALTER TABLE `estadios` ENABLE KEYS */;
 
 -- Volcando estructura para tabla estadisticas.jugadores
@@ -129,10 +130,12 @@ CREATE TABLE IF NOT EXISTS `jugadores` (
   `dorsal` int(3) DEFAULT NULL,
   `estado` varchar(3) NOT NULL COMMENT 'ACT=>ACTIVO - INA =>INACTIVO - CED=>CEDIDO',
   PRIMARY KEY (`id_jugador`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8mb4;
 
 -- Volcando datos para la tabla estadisticas.jugadores: ~0 rows (aproximadamente)
 /*!40000 ALTER TABLE `jugadores` DISABLE KEYS */;
+INSERT INTO `jugadores` (`id_jugador`, `nombres`, `apellidos`, `fecha_nacimiento`, `nacionalidad`, `estatura`, `perfil`, `posicion`, `valor_mercado`, `dorsal`, `estado`) VALUES
+	(1, 'Wuilker', 'Fariñez Aray', '03/07/1991', 'VEN', 178, 'Derecho', 'Arquero', 2000000, 1, 'ACT');
 /*!40000 ALTER TABLE `jugadores` ENABLE KEYS */;
 
 -- Volcando estructura para tabla estadisticas.paises
@@ -144,7 +147,7 @@ CREATE TABLE IF NOT EXISTS `paises` (
   PRIMARY KEY (`id_pais`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
--- Volcando datos para la tabla estadisticas.paises: ~2 rows (aproximadamente)
+-- Volcando datos para la tabla estadisticas.paises: ~11 rows (aproximadamente)
 /*!40000 ALTER TABLE `paises` DISABLE KEYS */;
 INSERT INTO `paises` (`id_pais`, `nombre_pais`, `codigo_pais`, `estado`) VALUES
 	(1, 'Colombia', 'COL', 'ACT'),
@@ -197,6 +200,20 @@ CREATE TABLE IF NOT EXISTS `partidos` (
 /*!40000 ALTER TABLE `partidos` DISABLE KEYS */;
 /*!40000 ALTER TABLE `partidos` ENABLE KEYS */;
 
+-- Volcando estructura para tabla estadisticas.roles
+CREATE TABLE IF NOT EXISTS `roles` (
+  `id_rol` int(11) NOT NULL,
+  `nombre_rol` varchar(200) DEFAULT NULL,
+  PRIMARY KEY (`id_rol`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+-- Volcando datos para la tabla estadisticas.roles: ~2 rows (aproximadamente)
+/*!40000 ALTER TABLE `roles` DISABLE KEYS */;
+INSERT INTO `roles` (`id_rol`, `nombre_rol`) VALUES
+	(1, 'Administrador'),
+	(2, 'Supervisor');
+/*!40000 ALTER TABLE `roles` ENABLE KEYS */;
+
 -- Volcando estructura para tabla estadisticas.tipos_partidos
 CREATE TABLE IF NOT EXISTS `tipos_partidos` (
   `id_tipo_partido` int(11) NOT NULL AUTO_INCREMENT,
@@ -221,6 +238,25 @@ CREATE TABLE IF NOT EXISTS `torneos` (
 -- Volcando datos para la tabla estadisticas.torneos: ~0 rows (aproximadamente)
 /*!40000 ALTER TABLE `torneos` DISABLE KEYS */;
 /*!40000 ALTER TABLE `torneos` ENABLE KEYS */;
+
+-- Volcando estructura para tabla estadisticas.usuarios
+CREATE TABLE IF NOT EXISTS `usuarios` (
+  `id_usuario` int(11) NOT NULL AUTO_INCREMENT,
+  `nombre` varchar(200) NOT NULL,
+  `correo` varchar(200) NOT NULL,
+  `nickname` varchar(200) NOT NULL,
+  `clave` varchar(100) NOT NULL,
+  `rol` int(11) NOT NULL,
+  PRIMARY KEY (`id_usuario`) USING BTREE,
+  KEY `FK_usuarios_roles` (`rol`),
+  CONSTRAINT `FK_usuarios_roles` FOREIGN KEY (`rol`) REFERENCES `roles` (`id_rol`)
+) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8mb4;
+
+-- Volcando datos para la tabla estadisticas.usuarios: ~0 rows (aproximadamente)
+/*!40000 ALTER TABLE `usuarios` DISABLE KEYS */;
+INSERT INTO `usuarios` (`id_usuario`, `nombre`, `correo`, `nickname`, `clave`, `rol`) VALUES
+	(1, 'Luis Hoyos', 'luishoyos91@ingenieros.com', 'luishoyos91', '25d55ad283aa400af464c76d713c07ad', 1);
+/*!40000 ALTER TABLE `usuarios` ENABLE KEYS */;
 
 /*!40101 SET SQL_MODE=IFNULL(@OLD_SQL_MODE, '') */;
 /*!40014 SET FOREIGN_KEY_CHECKS=IF(@OLD_FOREIGN_KEY_CHECKS IS NULL, 1, @OLD_FOREIGN_KEY_CHECKS) */;

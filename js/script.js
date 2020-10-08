@@ -1,4 +1,4 @@
-$(document).ready(function(){
+  $(document).ready(function(){
     $.ajax({
       type: 'POST',
       url: 'php/cargar_listas.php'

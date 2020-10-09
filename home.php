@@ -9,7 +9,7 @@
 <body>
   <?php include "nav.php" ?>
   <section>
-    
+    <h2>Bienvenido al Sistema</h2>
   </section>
   <?php include "footer.php" ?>
   <script type="text/javascript" src="js/script.js"></script>

@@ -1,3 +1,10 @@
+<?php
+    session_start();
+    if(empty($_SESSION['active'])){
+      header('location: index.php');
+    }
+?>
+
 <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
 <a class="navbar-brand" href="#">
     <img src="iconos/millonarios.png" width="30" height="30" alt="Logotipo" loading="lazy">
@@ -10,6 +17,9 @@
       <li class="nav-item">
         <a class="nav-link" href="estadios.php">Estadios</a>
       </li>
+      <li class="nav-item">
+        <a class="nav-link" href="jugadores.php">Jugadores</a>
+      </li>
       <li class="nav-item dropdown">
         <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
           Dropdown
@@ -21,9 +31,13 @@
           <a class="dropdown-item" href="#">Something else here</a>
         </div>
       </li>
-      <li class="nav-item">
-        <a class="nav-link" href="php/salir.php">Salir</a>
-      </li>
     </ul>
+    <div class="form-inline my-2 my-lg-0">
+      <ul class="navbar-nav mr-auto">
+        <li class="nav-item">
+          <a class="nav-link" href="php/salir.php">Salir</a>
+        </li>
+      </ul>
+    </div>
   </div>
 </nav>

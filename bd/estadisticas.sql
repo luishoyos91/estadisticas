@@ -126,16 +126,17 @@ CREATE TABLE IF NOT EXISTS `jugadores` (
   `estatura` int(3) DEFAULT NULL,
   `perfil` varchar(50) DEFAULT NULL,
   `posicion` varchar(50) DEFAULT NULL,
-  `valor_mercado` int(20) DEFAULT NULL,
+  `valor_mercado` int(20) unsigned DEFAULT NULL,
   `dorsal` int(3) DEFAULT NULL,
   `estado` varchar(3) NOT NULL COMMENT 'ACT=>ACTIVO - INA =>INACTIVO - CED=>CEDIDO',
+  `fecha_registro` datetime NOT NULL,
   PRIMARY KEY (`id_jugador`)
-) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8mb4;
+) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8mb4;
 
--- Volcando datos para la tabla estadisticas.jugadores: ~0 rows (aproximadamente)
+-- Volcando datos para la tabla estadisticas.jugadores: ~1 rows (aproximadamente)
 /*!40000 ALTER TABLE `jugadores` DISABLE KEYS */;
-INSERT INTO `jugadores` (`id_jugador`, `nombres`, `apellidos`, `fecha_nacimiento`, `nacionalidad`, `estatura`, `perfil`, `posicion`, `valor_mercado`, `dorsal`, `estado`) VALUES
-	(1, 'Wuilker', 'Fariñez Aray', '03/07/1991', 'VEN', 178, 'Derecho', 'Arquero', 2000000, 1, 'ACT');
+INSERT INTO `jugadores` (`id_jugador`, `nombres`, `apellidos`, `fecha_nacimiento`, `nacionalidad`, `estatura`, `perfil`, `posicion`, `valor_mercado`, `dorsal`, `estado`, `fecha_registro`) VALUES
+	(2, 'Wuilker', 'Fariñez', '01/01/2009', 'VEN', 180, 'Derecho', 'Arquero', 1000000, 1, 'ACT', '2020-10-08 19:24:04');
 /*!40000 ALTER TABLE `jugadores` ENABLE KEYS */;
 
 -- Volcando estructura para tabla estadisticas.paises

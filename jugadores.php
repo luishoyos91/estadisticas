@@ -5,7 +5,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Jugadores - Estadísticas Millonarios</title>
-    <?php include "scripts.php" ?>
+    <?php include "links.php" ?>
 </head>
 <body>
 <?php
@@ -26,8 +26,8 @@
                 ?>
                 </div>
                 <h1>Jugadores</h1>
-                <a href="crear_estadio.php"> <img src="iconos/add.svg" class="icono_registrar" alt="registrar"
-                        title="Registrar Estadio"></a>
+                <a href="crear_jugador.php"> <img src="iconos/add.svg" class="icono_registrar" alt="registrar"
+                        title="Registrar Jugador"></a>
                 <br>
                 <br>
                 <table class="table table-hover table-striped table-responsive" id="tablas">
@@ -70,9 +70,10 @@
 
 
                             $consulta = "SELECT j.id_jugador,j.nombres, j.apellidos, j.fecha_nacimiento, 
-                                        j.nacionalidad, j.estatura, j.perfil, j.posicion, j.valor_mercado,j.dorsal,j.estado
-                                        FROM jugadores j
-                                        ORDER BY j.posicion
+                            p.nombre_pais , j.estatura, j.perfil, j.posicion, j.valor_mercado,j.dorsal,j.estado
+                            FROM jugadores j
+                            INNER JOIN paises p ON j.nacionalidad = p.id_pais 
+                            ORDER BY j.posicion
                                         LIMIT $desde,$por_pagina";                    
                             $ejecutar = mysqli_query($con, $consulta);
 
@@ -83,7 +84,7 @@
                                 $nombres = $fila['nombres'];
                                 $apellidos = $fila['apellidos']; 
                                 $fecha_nacimiento = $fila['fecha_nacimiento'];                        
-                                $nacionalidad = $fila['nacionalidad'];
+                                $nacionalidad = $fila['nombre_pais'];
                                 $estatura = $fila['estatura'];
                                 $perfil = $fila['perfil'];
                                 $posicion = $fila['posicion'];                               
@@ -162,7 +163,7 @@
         </div>
     </section>
     <?php include "footer.php" ?>
-    <script type="text/javascript" src="js/script.js"></script>
+    <?php include "scripts.php" ?>
 </body>
 
 </html>

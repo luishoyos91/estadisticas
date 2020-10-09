@@ -4,14 +4,14 @@
       <meta charset="UTF-8">
       <meta name="viewport" content="width=device-width, initial-scale=1.0">
       <title>Estadios - Estadísticas Millonarios</title>
-      <?php include "scripts.php" ?>
+      <?php include "links.php" ?>
    </head>
    <body>
    <?php
     include_once("php/conexion.php");
     include("php/registro.php");    
    ?>
-   <?php include "nav.php" ?>
+      <?php include "nav.php" ?>
       <section>
          <br>
          <div class="container">
@@ -43,25 +43,23 @@
 
                <form method="POST" action="php/actualizar.php">  
                  <div class="form-group col-md-6" id="formularios">                     
-                     <input type="hidden" value="<?php echo $id; ?>" class="form-control" id="id_estadio" aria-describedby="emailHelp"
-                        name="id_estadio" required>
+                     <input type="hidden" value="<?php echo $id; ?>" class="form-control" id="id_estadio" name="id_estadio" required>
                 </div>                
                   <div class="form-group col-md-6" id="formularios">
                      <label class="control-label" for="nombre">Nombre</label>
-                     <input type="text" value="<?php echo $nombre_estadio; ?>" class="form-control" id="nombre" aria-describedby="emailHelp"
-                        name="nombre_estadio" minlenght="3" required>
+                     <input type="text" value="<?php echo $nombre_estadio; ?>" class="form-control" id="nombre" name="nombre_estadio" minlenght="3" required>
                   </div>
                   <div class="form-group col-md-6" id="formularios">
                      <label for="aforo">Aforo</label>
                      <input type="number" value="<?php echo $aforo; ?>" class="form-control" id="aforo" name="aforo">
                   </div>
                   <div class="form-group col-md-6" id="formularios">
-                     <label class="label_form">País</label>
+                     <label for="label_form">País</label>
                      <select class="form-control" id="lista_paises" name="pais_estadio">
                      </select>
                   </div>
                   <div class="form-group col-md-6" id="formularios">
-                     <label class="label_form">Ciudad</label>
+                     <label for="label_form">Ciudad</label>
                      <select class="form-control" id="ciudades" name="ciudad_estadio" required>
                      </select>
                   </div>
@@ -77,6 +75,6 @@
          </div>
       </section>
       <?php include "footer.php" ?>
-      <script type="text/javascript" src="js/script.js"></script>
+      <?php include "scripts.php" ?>
    </body>
 </html>

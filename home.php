@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Home- Estadísticas Millonarios</title>
-    <?php include "scripts.php" ?>
+    <?php include "links.php" ?>
 </head>
 <body>
   <?php include "nav.php" ?>
@@ -12,6 +12,6 @@
     <h2>Bienvenido al Sistema</h2>
   </section>
   <?php include "footer.php" ?>
-  <script type="text/javascript" src="js/script.js"></script>
+  <?php include "scripts.php" ?>
 </body>
 </html>

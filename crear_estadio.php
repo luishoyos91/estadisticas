@@ -4,7 +4,7 @@
       <meta charset="UTF-8">
       <meta name="viewport" content="width=device-width, initial-scale=1.0">
       <title>Registrar Estadio - Estadísticas Millonarios</title>
-      <?php include "scripts.php" ?>
+      <?php include "links.php" ?>
    </head>
    <body>
    <?php
@@ -48,6 +48,6 @@
          </div>
       </section>
       <?php include "footer.php" ?>
-      <script type="text/javascript" src="js/script.js"></script>
+      <?php include "scripts.php" ?>
    </body>
 </html>
